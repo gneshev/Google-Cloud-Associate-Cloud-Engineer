@@ -1,0 +1,100 @@
+
+
+
+
+
+
+
+
+
+
+
+
+Compute Engine Hands-on : Setting up a HTTP server
+
+sudo su
+apt update 
+apt install apache2
+echo "Hello world from $(hostname) $(hostname -i)" > /var/www/html/index.html
+sudo service apache2 start
+
+
+
+Reducing Launch Time with a Custom Image
+
+gcloud compute images list --no-standard-images
+gcloud compute images deprecate IMAGE_NAME \
+    --state=DEPRECATED_STATE \
+	
+DEPRECATED 
+Маркира image като остаряло. Потребителите ще получат предупреждение, ако се опитат да го използват за създаване на нов екземпляр, но създаването ще бъде успешно.
+
+OBSOLETE
+Маркира image като остарял и предотвратява създаването на нови екземпляри от него. 
+
+DELETED
+Маркира image за евентуално изтриване. Google Cloud обикновено ще изтрие изображението 7 дни след като е зададено в това състояние. Не могат да се създават нови екземпляри.
+
+ACTIVE
+Връща изображението в нормално състояние
+
+gcloud compute images deprecate IMAGE_NAME --state=DEPRECATED
+
+
+Gcloud for Associate Cloud Engineer
+
+gcloud config list
+gcloud config list project
+gcloud config list compute/region
+gcloud config list compute/zone
+gcloud config configurations list
+gcloud config configurations create my-default-configuration
+gcloud config configurations activate my-default-configuration
+gcloud config configurations describe my-second-configuration
+gcloud config set compute/region us-central1
+gcloud config set compute/zone us-central1-a
+gcloud config set core/project PROJECT_NAME
+
+
+
+gcloud compute instances list
+gcloud compute instances create my-first-instance-from-gcloud
+gcloud compute instances describe my-first-instance-from-gcloud
+gcloud compute instances delete my-first-instance-from-gcloud
+
+gcloud compute zones list
+gcloud compute regions list
+gcloud compute machine-types list
+
+
+gcloud compute machine-types list --filter="zone:us-east1-b"
+gcloud compute instances create my-first-instance-from-gcloud --zone us-east1-b --machine-type n2-standard-2
+gcloud compute instances delete my-first-instance-from-gcloud --zone us-east1-b
+
+
+
+
+
+Getting Started with Google Kubernetes Engine
+
+gcloud container clusters create my-cluster --zone ZONE_NAME --disk-size 50
+gcloud container clusters create my-cluster --zone ZONE_NAME --num-nodes 2
+
+gcloud container clusters get-credentials my-cluster --zone ZONE_NAME --project spry-connection-474417-e2
+kubectl create deployment mynginx --image=nginx
+kubectl expose deployment mynginx --type=LoadBalancer --port=80
+kubectl get services
+gcloud container clusters resize my-cluster --node-pool default-pool --zone ZONE_NAME --num-nodes 2
+kubectl scale deployment/mynginx --replicas=2
+kubectl autoscale deployment mynginx --max=4 --cpu-percent=70
+kubectl get hpa
+gcloud container clusters update my-cluster --enable-autoscaling --node-pool default-pool --zone us-west1-a --min-nodes=1 --max-nodes=5
+
+
+
+Block and File Storage in Google Cloud Platform - GCP
+
+gcloud compute disks list
+gcloud compute disks resize DISK_NAME --size=11 --zone=ZONE_NAME
+or
+gcloud compute disks resize DISK_NAME --size=11 --region=REGION_NAME
